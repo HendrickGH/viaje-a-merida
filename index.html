@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan Maestro Yucatán Express</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts: Roboto -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Configuración personalizada de Tailwind y Estilos -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              roboto: ["Roboto", "sans-serif"],
+            },
+            animation: {
+              blob: "blob 7s infinite",
+              fadeIn: "fadeIn 0.5s ease-out forwards",
+              slideIn: "slideIn 0.4s ease-out forwards",
+            },
+            keyframes: {
+              blob: {
+                "0%": { transform: "translate(0px, 0px) scale(1)" },
+                "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                "100%": { transform: "translate(0px, 0px) scale(1)" },
+              },
+              fadeIn: {
+                from: { opacity: "0" },
+                to: { opacity: "1" },
+              },
+              slideIn: {
+                from: { opacity: "0", transform: "translateY(10px)" },
+                to: { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Utilidad para delays de animación */
+      .delay-100 {
+        animation-delay: 100ms;
+      }
+      .delay-200 {
+        animation-delay: 200ms;
+      }
+      .delay-300 {
+        animation-delay: 300ms;
+      }
+      .delay-400 {
+        animation-delay: 400ms;
+      }
+      .delay-500 {
+        animation-delay: 500ms;
+      }
+      .delay-600 {
+        animation-delay: 600ms;
+      }
+      .delay-700 {
+        animation-delay: 700ms;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-950 text-slate-200 selection:bg-teal-500 selection:text-white pb-20"
+  >
+    <!-- HEADER IMPONENTE -->
+    <header class="relative pt-12 pb-24 overflow-hidden">
+      <!-- Fondo animado -->
+      <div
+        class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
+      >
+        <div
+          class="absolute right-0 top-0 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"
+        ></div>
+        <div
+          class="absolute left-0 bottom-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"
+          style="animation-delay: 2s"
+        ></div>
+      </div>
+
+      <div class="relative max-w-4xl mx-auto px-6 text-center z-10">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 mb-4 backdrop-blur-sm"
+        >
+          <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+          <span
+            class="text-xs font-mono uppercase tracking-widest text-slate-300"
+            >Itinerario Confirmado</span
+          >
+        </div>
+        <h1
+          class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 mb-2 tracking-tight drop-shadow-lg"
+        >
+          YUCATÁN EXPRESS
+        </h1>
+        <p
+          class="text-lg md:text-xl text-slate-400 font-light max-w-2xl mx-auto"
+        >
+          Mérida • Progreso • Chichén Itzá • Valladolid
+        </p>
+      </div>
+    </header>
+
+    <!-- NAVEGACIÓN (TABS) -->
+    <div class="sticky top-4 z-50 max-w-4xl mx-auto px-4 mb-8">
+      <div
+        class="bg-slate-900/90 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/50 border border-slate-800 p-2 overflow-x-auto hide-scrollbar flex justify-between md:justify-center gap-2"
+      >
+        <!-- Botones generados por JS o estáticos -->
+        <button
+          onclick="switchDay(1)"
+          id="tab-1"
+          class="tab-btn flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-300 min-w-[80px] bg-slate-800 border-b-4 border-teal-400 shadow-[0_0_15px_rgba(45,212,191,0.2)] group"
+        >
+          <span
+            class="text-xs font-bold uppercase tracking-wider mb-1 text-teal-400"
+            >Día 1</span
+          >
+          <span class="text-sm font-bold text-white">Lunes</span>
+        </button>
+        <button
+          onclick="switchDay(2)"
+          id="tab-2"
+          class="tab-btn flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-300 min-w-[80px] hover:bg-slate-800/50 border-b-4 border-transparent opacity-60 hover:opacity-100 group"
+        >
+          <span
+            class="text-xs font-bold uppercase tracking-wider mb-1 text-slate-500"
+            >Día 2</span
+          >
+          <span class="text-sm font-bold text-slate-400">Martes</span>
+        </button>
+        <button
+          onclick="switchDay(3)"
+          id="tab-3"
+          class="tab-btn flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-300 min-w-[80px] hover:bg-slate-800/50 border-b-4 border-transparent opacity-60 hover:opacity-100 group"
+        >
+          <span
+            class="text-xs font-bold uppercase tracking-wider mb-1 text-slate-500"
+            >Día 3</span
+          >
+          <span class="text-sm font-bold text-slate-400">Miér</span>
+        </button>
+        <button
+          onclick="switchDay(4)"
+          id="tab-4"
+          class="tab-btn flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-300 min-w-[80px] hover:bg-slate-800/50 border-b-4 border-transparent opacity-60 hover:opacity-100 group"
+        >
+          <span
+            class="text-xs font-bold uppercase tracking-wider mb-1 text-slate-500"
+            >Día 4</span
+          >
+          <span class="text-sm font-bold text-slate-400">Jueves</span>
+        </button>
+        <button
+          onclick="switchDay(5)"
+          id="tab-5"
+          class="tab-btn flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-300 min-w-[80px] hover:bg-slate-800/50 border-b-4 border-transparent opacity-60 hover:opacity-100 group"
+        >
+          <span
+            class="text-xs font-bold uppercase tracking-wider mb-1 text-slate-500"
+            >Día 5</span
+          >
+          <span class="text-sm font-bold text-slate-400">Viernes</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-3xl mx-auto px-4 min-h-[600px]">
+      <!-- DÍA 1: LUNES -->
+      <div id="day-1" class="day-content animate-fadeIn">
+        <div class="text-center mb-10">
+          <div
+            class="h-2 w-24 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 mb-4 shadow-lg shadow-cyan-500/50"
+          ></div>
+          <h2 class="text-3xl font-bold text-white mb-1">Lunes: Aterrizaje</h2>
+          <div class="flex items-center justify-center gap-2 text-slate-400">
+            <i class="fa-solid fa-location-dot text-sm"></i>
+            <span class="text-lg font-light">Mérida Norte & La Plancha</span>
+          </div>
+          <!-- Stats -->
+          <div class="grid grid-cols-2 gap-4 mt-6 max-w-md mx-auto">
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-car-side"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Transporte
+                </p>
+                <p class="text-sm font-medium text-slate-200">Uber</p>
+              </div>
+            </div>
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-bed"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Alojamiento
+                </p>
+                <p class="text-sm font-medium text-slate-200">
+                  Airbnb La Plancha
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Day 1 -->
+        <div
+          class="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-8 pb-12"
+        >
+          <!-- Card -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-100">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-orange-500 hover:bg-slate-800 transition-all duration-300 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">Tarde</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-orange-400"
+                >
+                  <i class="fa-solid fa-plane text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Llegada Aeropuerto (MID)
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >Uber ~$200</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Retirar efectivo ATM (Taxis/Propinas). Pedir Uber hacia zona
+                  La Plancha (Norte Centro).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-200">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-teal-400 hover:bg-slate-800 transition-all duration-300 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">16:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-teal-400"
+                >
+                  <i class="fa-solid fa-house-user text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Check-in & Relax
+                  </h4>
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Airbnb en Parque La Plancha. Dejar maletas. Ropa ligera
+                  (Lino/Shorts) y repelente.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-300">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-slate-600 hover:bg-slate-800 transition-all duration-300 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">19:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-slate-300"
+                >
+                  <i class="fa-solid fa-tree text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Parque La Plancha
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >Gratis</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Caminata de reconocimiento. Ver lago artificial, vagones
+                  antiguos y ubicar estación IE-TRAM.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-400">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-slate-600 hover:bg-slate-800 transition-all duration-300 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">20:30</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-slate-300"
+                >
+                  <i class="fa-solid fa-utensils text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Cena de Bienvenida
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >$$$</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Mercado Gastronómico (Variedad) o Corredor Calle 47
+                  (Catrín/Micaela). Paseo nocturno seguro.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DÍA 2: MARTES -->
+      <div id="day-2" class="day-content hidden">
+        <div class="text-center mb-10">
+          <div
+            class="h-2 w-24 mx-auto rounded-full bg-gradient-to-r from-orange-400 to-amber-600 mb-4 shadow-lg shadow-orange-500/50"
+          ></div>
+          <h2 class="text-3xl font-bold text-white mb-1">
+            Martes: Sol & Playa
+          </h2>
+          <div class="flex items-center justify-center gap-2 text-slate-400">
+            <i class="fa-solid fa-location-dot text-sm"></i>
+            <span class="text-lg font-light">Puerto Progreso</span>
+          </div>
+          <!-- Stats -->
+          <div class="grid grid-cols-2 gap-4 mt-6 max-w-md mx-auto">
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-car-side"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Transporte
+                </p>
+                <p class="text-sm font-medium text-slate-200">
+                  Bus AutoProgreso
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-bed"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Alojamiento
+                </p>
+                <p class="text-sm font-medium text-slate-200">Hotel Itze</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-8 pb-12"
+        >
+          <!-- Logistica -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-100">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-orange-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">09:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-orange-400"
+                >
+                  <i class="fa-solid fa-taxi text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Uber a Terminal
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >~$50</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Pedir Uber con tiempo. Destino: Terminal AutoProgreso (Calle
+                  62, Centro).
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Bus -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-200">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-blue-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">10:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-blue-400"
+                >
+                  <i class="fa-solid fa-bus text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Bus a Progreso
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >$50 pp</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Salidas cada 15 min. Costo $50 pp (Efectivo). Aire
+                  acondicionado fuerte (Llevar suéter).
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Food -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-300">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-slate-600 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">12:30</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-slate-300"
+                >
+                  <i class="fa-solid fa-fish-fins text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Malecón & Mariscos
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >$$</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Caminar al Malecón. Letras Gigantes. Comida: Ceviche/Pescado
+                  frito en palapas frente al mar.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Must -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-400">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-orange-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">18:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-orange-400"
+                >
+                  <i class="fa-solid fa-camera-retro text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Muelle de Chocolate
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-orange-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >Gratis</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Atardecer en Muelle. IMPORTANTE: Comprar desayuno en Oxxo
+                  (Agua/Barritas) para la madrugada.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DÍA 3: MIÉRCOLES -->
+      <div id="day-3" class="day-content hidden">
+        <div class="text-center mb-10">
+          <div
+            class="h-2 w-24 mx-auto rounded-full bg-gradient-to-r from-emerald-400 to-green-600 mb-4 shadow-lg shadow-emerald-500/50"
+          ></div>
+          <h2 class="text-3xl font-bold text-white mb-1">
+            Miércoles: Ruta Maya
+          </h2>
+          <div class="flex items-center justify-center gap-2 text-slate-400">
+            <i class="fa-solid fa-location-dot text-sm"></i>
+            <span class="text-lg font-light">Chichén Itzá -> Valladolid</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-6 max-w-md mx-auto">
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-train"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Transporte
+                </p>
+                <p class="text-sm font-medium text-slate-200">
+                  Tren Maya + ADO
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-campground"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Alojamiento
+                </p>
+                <p class="text-sm font-medium text-slate-200">
+                  Xkopek (Camping)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-8 pb-12"
+        >
+          <!-- Critical -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-100">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-red-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">06:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-red-500 animate-pulse"
+                >
+                  <i class="fa-solid fa-bus text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Bus a Mérida
+                    <span
+                      class="text-[10px] font-bold uppercase bg-red-500/20 text-red-400 px-2 py-0.5 rounded ml-2"
+                      >Crítico</span
+                    >
+                  </h4>
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Salida 5:40 AM del Hotel. Llegada 7:00 AM Mérida. NO CAMINAR.
+                  Pedir Uber inmediato a Terminal ADO CAME (Calle 70).
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Chichen -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-200">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-emerald-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">10:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-emerald-400"
+                >
+                  <i class="fa-solid fa-monument text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Zona Arqueológica
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-emerald-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Castillo Kukulcán, Juego Pelota. Guardar maletas en lockers
+                  entrada ($). Sombrero y agua.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Shuttle Alert -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-300">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-red-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">13:15</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-red-500 animate-pulse"
+                >
+                  <i class="fa-solid fa-van-shuttle text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Shuttle a Estación
+                    <span
+                      class="text-[10px] font-bold uppercase bg-red-500/20 text-red-400 px-2 py-0.5 rounded ml-2"
+                      >Crítico</span
+                    >
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >$55 Efec</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Salir de ruinas. Buscar bus 'Intermodal Tren Maya' en
+                  estacionamiento. Pago $55 efectivo.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Tren Maya -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-400">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-emerald-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">14:25</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-emerald-400"
+                >
+                  <i class="fa-solid fa-train-subway text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Tren Maya (307)
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-emerald-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Rumbo Valladolid. Salida 14:25. Disfrutar vagón cafetería.
+                  Aire acondicionado.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Xkopek -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-500">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-emerald-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">16:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-emerald-400"
+                >
+                  <i class="fa-solid fa-bug text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Xkopek & Mapping
+                  </h4>
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Taxi directo estación -> Xkopek. Tour Meliponas 16:00. 21:00
+                  PM Show luces gratis en Convento.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DÍA 4: JUEVES -->
+      <div id="day-4" class="day-content hidden">
+        <div class="text-center mb-10">
+          <div
+            class="h-2 w-24 mx-auto rounded-full bg-gradient-to-r from-violet-400 to-purple-600 mb-4 shadow-lg shadow-violet-500/50"
+          ></div>
+          <h2 class="text-3xl font-bold text-white mb-1">
+            Jueves: Cultura & Trova
+          </h2>
+          <div class="flex items-center justify-center gap-2 text-slate-400">
+            <i class="fa-solid fa-location-dot text-sm"></i>
+            <span class="text-lg font-light">Valladolid -> Mérida Centro</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-6 max-w-md mx-auto">
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-bus"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Transporte
+                </p>
+                <p class="text-sm font-medium text-slate-200">ADO</p>
+              </div>
+            </div>
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-hotel"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Alojamiento
+                </p>
+                <p class="text-sm font-medium text-slate-200">
+                  Hotel frente ADO
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-8 pb-12"
+        >
+          <!-- Cenote -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-100">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-violet-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">08:15</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-violet-400"
+                >
+                  <i class="fa-solid fa-water text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Cenote Zací
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-violet-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >$60</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  08:15 Taxi a ADO (Dejar Mochilas $). 08:30 Nadar con luz de
+                  mañana (sin gente). Salir 9:30.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Casa Venados -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-200">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-violet-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">10:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-violet-400"
+                >
+                  <i class="fa-solid fa-palette text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Casa de los Venados
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-violet-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >Propina</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Tour PUNTUAL (10:00 AM) de arte popular. Propina sugerida
+                  $100.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- ADO Regreso -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-300">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-blue-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">14:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-blue-400"
+                >
+                  <i class="fa-solid fa-bus text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">ADO a Mérida</h4>
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Comida rápida en Mercado. Regreso a Mérida CAME. Llegada
+                  ~16:00. Cruzar calle a Hotel.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Serenata -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-400">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-violet-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">21:00</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-violet-400"
+                >
+                  <i class="fa-solid fa-music text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Serenata Yucateca
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-violet-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >Gratis</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Parque Santa Lucía. Cena en Sorbetería Colón (Champola).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DÍA 5: VIERNES -->
+      <div id="day-5" class="day-content hidden">
+        <div class="text-center mb-10">
+          <div
+            class="h-2 w-24 mx-auto rounded-full bg-gradient-to-r from-rose-400 to-pink-600 mb-4 shadow-lg shadow-rose-500/50"
+          ></div>
+          <h2 class="text-3xl font-bold text-white mb-1">
+            Viernes: La Despedida
+          </h2>
+          <div class="flex items-center justify-center gap-2 text-slate-400">
+            <i class="fa-solid fa-location-dot text-sm"></i>
+            <span class="text-lg font-light">Mérida -> Aeropuerto</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-6 max-w-md mx-auto">
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-car-side"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Transporte
+                </p>
+                <p class="text-sm font-medium text-slate-200">Uber</p>
+              </div>
+            </div>
+            <div
+              class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center gap-3"
+            >
+              <div
+                class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400"
+              >
+                <i class="fa-solid fa-house"></i>
+              </div>
+              <div class="text-left">
+                <p class="text-[10px] uppercase text-slate-500 font-bold">
+                  Alojamiento
+                </p>
+                <p class="text-sm font-medium text-slate-200">Casa</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-8 pb-12"
+        >
+          <!-- Zoo -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-100">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-slate-600 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">10:30</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-slate-300"
+                >
+                  <i class="fa-solid fa-paw text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Zoológico Centenario
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >$1</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Uber ($50). Subir al Trenecito ($1). Ver leones blancos y
+                  jardín botánico.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Palacio Musica -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-200">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-rose-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">14:30</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-rose-400"
+                >
+                  <i class="fa-solid fa-headphones text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Palacio de la Música
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-rose-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >$25/$100</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Museo interactivo con A/C. Refugio del calor. Credencial
+                  estudiante FÍSICA necesaria.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Aeropuerto -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-300">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-blue-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">17:45</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-blue-400"
+                >
+                  <i class="fa-solid fa-car text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    Rumbo al Aeropuerto
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >Uber ~$150</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  17:30 Recoger maletas. Uber a MID (Av. Itzaes). Llegada 18:15
+                  para documentar.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- VIP -->
+          <div class="relative pl-8 md:pl-10 animate-slideIn delay-400">
+            <div
+              class="absolute -left-[9px] top-6 h-4 w-4 rounded-full bg-slate-900 border-2 border-slate-600 z-10"
+            ></div>
+            <div
+              class="relative flex gap-4 p-4 rounded-xl bg-slate-900 border-l-4 border-rose-500 hover:bg-slate-800 shadow-lg"
+            >
+              <div class="flex flex-col items-center min-w-[60px]">
+                <span class="text-xs font-bold text-slate-500 mb-1">18:45</span>
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-rose-400"
+                >
+                  <i class="fa-solid fa-martini-glass text-lg"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <div class="flex justify-between items-start">
+                  <h4 class="text-slate-100 font-bold text-lg">
+                    VIP Lounge
+                    <span
+                      class="text-[10px] font-bold uppercase bg-slate-800 text-rose-400 px-2 py-0.5 rounded ml-2 border border-slate-700"
+                      >Must</span
+                    >
+                  </h4>
+                  <span
+                    class="text-xs font-mono text-slate-400 bg-slate-950 px-2 py-1 rounded"
+                    >TDC</span
+                  >
+                </div>
+                <p class="text-slate-400 text-sm mt-1">
+                  Acceso con TDC. Cena ligera, bebidas y Wifi antes del vuelo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER CHECKLIST -->
+    <footer
+      class="max-w-3xl mx-auto px-6 mt-16 pt-8 border-t border-slate-800 text-center"
+    >
+      <h4
+        class="text-xs font-mono uppercase tracking-widest text-slate-500 mb-6"
+      >
+        Recordatorios Vitales
+      </h4>
+      <div class="flex flex-wrap justify-center gap-4">
+        <span
+          class="px-3 py-1 bg-slate-900 rounded-full border border-slate-700 text-xs text-slate-400 flex items-center gap-2"
+        >
+          <i class="fa-solid fa-id-card text-rose-500"></i> Credencial
+          Estudiante FÍSICA
+        </span>
+        <span
+          class="px-3 py-1 bg-slate-900 rounded-full border border-slate-700 text-xs text-slate-400 flex items-center gap-2"
+        >
+          <i class="fa-solid fa-ticket text-emerald-500"></i> Boleto Tren Maya
+          (14:25)
+        </span>
+        <span
+          class="px-3 py-1 bg-slate-900 rounded-full border border-slate-700 text-xs text-slate-400 flex items-center gap-2"
+        >
+          <i class="fa-solid fa-money-bill-wave text-green-500"></i> Efectivo
+          ($1,500 MXN)
+        </span>
+      </div>
+    </footer>
+
+    <!-- LOGICA DE TABS -->
+    <script>
+      function switchDay(dayNum) {
+        // Ocultar todos los contenidos
+        document.querySelectorAll(".day-content").forEach((el) => {
+          el.classList.add("hidden");
+          el.classList.remove("animate-fadeIn");
+        });
+
+        // Mostrar el seleccionado
+        const activeContent = document.getElementById(`day-${dayNum}`);
+        activeContent.classList.remove("hidden");
+        // Hack para reiniciar animación
+        void activeContent.offsetWidth;
+        activeContent.classList.add("animate-fadeIn");
+
+        // Actualizar botones
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          // Reset styles to inactive
+          btn.className =
+            "tab-btn flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-300 min-w-[80px] hover:bg-slate-800/50 border-b-4 border-transparent opacity-60 hover:opacity-100 group";
+          // Reset text colors inside
+          const smallText = btn.querySelector("span:nth-child(1)");
+          const bigText = btn.querySelector("span:nth-child(2)");
+          smallText.className =
+            "text-xs font-bold uppercase tracking-wider mb-1 text-slate-500";
+          bigText.className = "text-sm font-bold text-slate-400";
+        });
+
+        // Set active button style based on color theme
+        const activeBtn = document.getElementById(`tab-${dayNum}`);
+        let themeColor = "text-teal-400";
+        let borderColor = "border-teal-400";
+        let shadowColor = "shadow-[0_0_15px_rgba(45,212,191,0.2)]";
+
+        if (dayNum === 2) {
+          themeColor = "text-orange-400";
+          borderColor = "border-orange-400";
+          shadowColor = "shadow-[0_0_15px_rgba(251,146,60,0.2)]";
+        }
+        if (dayNum === 3) {
+          themeColor = "text-emerald-400";
+          borderColor = "border-emerald-400";
+          shadowColor = "shadow-[0_0_15px_rgba(52,211,153,0.2)]";
+        }
+        if (dayNum === 4) {
+          themeColor = "text-violet-400";
+          borderColor = "border-violet-400";
+          shadowColor = "shadow-[0_0_15px_rgba(167,139,250,0.2)]";
+        }
+        if (dayNum === 5) {
+          themeColor = "text-rose-400";
+          borderColor = "border-rose-400";
+          shadowColor = "shadow-[0_0_15px_rgba(251,113,133,0.2)]";
+        }
+
+        activeBtn.className = `tab-btn flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-300 min-w-[80px] bg-slate-800 border-b-4 ${borderColor} ${shadowColor} group`;
+
+        const smallText = activeBtn.querySelector("span:nth-child(1)");
+        const bigText = activeBtn.querySelector("span:nth-child(2)");
+        smallText.className = `text-xs font-bold uppercase tracking-wider mb-1 ${themeColor}`;
+        bigText.className = "text-sm font-bold text-white";
+      }
+    </script>
+  </body>
+</html>
